@@ -241,27 +241,6 @@
             margin-top: 5px;
         }
 
-        .loading {
-            display: none;
-            text-align: center;
-            padding: 20px;
-        }
-
-        .spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #4CAF50;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
         @media (max-width: 768px) {
             .form-row {
                 grid-template-columns: 1fr;
@@ -290,22 +269,24 @@
             </div>
 
             <form id="farmerForm">
-                <!-- Hidden field for Telegram user ID -->
-                <input type="hidden" id="telegram_user_id" name="telegram_user_id">
-
                 <!-- Step 1: Personal Information -->
                 <div class="step active">
                     <h2 class="step-title">👨‍🌾 Personal Information</h2>
                     
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="farmer_name">Full Name <span class="required">*</span></label>
-                            <input type="text" id="farmer_name" name="farmer_name" required>
+                            <label for="name">Full Name <span class="required">*</span></label>
+                            <input type="text" id="name" name="name" required>
                         </div>
                         <div class="form-group">
-                            <label for="phone_number">Phone Number <span class="required">*</span></label>
-                            <input type="tel" id="phone_number" name="phone_number" required>
+                            <label for="email">Email Address <span class="required">*</span></label>
+                            <input type="email" id="email" name="email" required>
                         </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number <span class="required">*</span></label>
+                        <input type="tel" id="phone" name="phone" required>
                     </div>
                 </div>
 
@@ -318,14 +299,13 @@
                             <label for="farm_type">Farm Type <span class="required">*</span></label>
                             <select id="farm_type" name="farm_type" required>
                                 <option value="">Select farm type</option>
-                                <option value="Dairy">Dairy</option>
-                                <option value="Livestock">Livestock</option>
-                                <option value="Farming">Farming</option>
-                                <option value="Poultry">Poultry</option>
-                                <option value="Beef">Beef</option>
-                                <option value="Sheep">Sheep</option>
-                                <option value="Tillage">Tillage</option>
-                                <option value="Mixed">Mixed</option>
+                                <option value="dairy">Dairy</option>
+                                <option value="beef">Beef</option>
+                                <option value="mixed">Mixed (Dairy & Beef)</option>
+                                <option value="tillage">Tillage</option>
+                                <option value="sheep">Sheep</option>
+                                <option value="poultry">Poultry</option>
+                                <option value="other">Other</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -334,43 +314,49 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="county">County <span class="required">*</span></label>
-                        <select id="county" name="county" required>
-                            <option value="">Select county</option>
-                            <option value="Antrim">Antrim</option>
-                            <option value="Armagh">Armagh</option>
-                            <option value="Carlow">Carlow</option>
-                            <option value="Cavan">Cavan</option>
-                            <option value="Clare">Clare</option>
-                            <option value="Cork">Cork</option>
-                            <option value="Derry">Derry</option>
-                            <option value="Donegal">Donegal</option>
-                            <option value="Down">Down</option>
-                            <option value="Dublin">Dublin</option>
-                            <option value="Fermanagh">Fermanagh</option>
-                            <option value="Galway">Galway</option>
-                            <option value="Kerry">Kerry</option>
-                            <option value="Kildare">Kildare</option>
-                            <option value="Kilkenny">Kilkenny</option>
-                            <option value="Laois">Laois</option>
-                            <option value="Leitrim">Leitrim</option>
-                            <option value="Limerick">Limerick</option>
-                            <option value="Longford">Longford</option>
-                            <option value="Louth">Louth</option>
-                            <option value="Mayo">Mayo</option>
-                            <option value="Meath">Meath</option>
-                            <option value="Monaghan">Monaghan</option>
-                            <option value="Offaly">Offaly</option>
-                            <option value="Roscommon">Roscommon</option>
-                            <option value="Sligo">Sligo</option>
-                            <option value="Tipperary">Tipperary</option>
-                            <option value="Tyrone">Tyrone</option>
-                            <option value="Waterford">Waterford</option>
-                            <option value="Westmeath">Westmeath</option>
-                            <option value="Wexford">Wexford</option>
-                            <option value="Wicklow">Wicklow</option>
-                        </select>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="location">Farm Location/Townland</label>
+                            <input type="text" id="location" name="location">
+                        </div>
+                        <div class="form-group">
+                            <label for="county">County <span class="required">*</span></label>
+                            <select id="county" name="county" required>
+                                <option value="">Select county</option>
+                                <option value="Antrim">Antrim</option>
+                                <option value="Armagh">Armagh</option>
+                                <option value="Carlow">Carlow</option>
+                                <option value="Cavan">Cavan</option>
+                                <option value="Clare">Clare</option>
+                                <option value="Cork">Cork</option>
+                                <option value="Derry">Derry</option>
+                                <option value="Donegal">Donegal</option>
+                                <option value="Down">Down</option>
+                                <option value="Dublin">Dublin</option>
+                                <option value="Fermanagh">Fermanagh</option>
+                                <option value="Galway">Galway</option>
+                                <option value="Kerry">Kerry</option>
+                                <option value="Kildare">Kildare</option>
+                                <option value="Kilkenny">Kilkenny</option>
+                                <option value="Laois">Laois</option>
+                                <option value="Leitrim">Leitrim</option>
+                                <option value="Limerick">Limerick</option>
+                                <option value="Longford">Longford</option>
+                                <option value="Louth">Louth</option>
+                                <option value="Mayo">Mayo</option>
+                                <option value="Meath">Meath</option>
+                                <option value="Monaghan">Monaghan</option>
+                                <option value="Offaly">Offaly</option>
+                                <option value="Roscommon">Roscommon</option>
+                                <option value="Sligo">Sligo</option>
+                                <option value="Tipperary">Tipperary</option>
+                                <option value="Tyrone">Tyrone</option>
+                                <option value="Waterford">Waterford</option>
+                                <option value="Westmeath">Westmeath</option>
+                                <option value="Wexford">Wexford</option>
+                                <option value="Wicklow">Wicklow</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
 
@@ -382,31 +368,22 @@
                         <label>Current Participation in Schemes:</label>
                         <div class="checkbox-group">
                             <div class="checkbox-item">
-                                <input type="checkbox" id="sdas" name="compliance_schemes" value="SDAS">
-                                <label for="sdas">SDAS (Suckler Dam Aid Scheme)</label>
+                                <input type="checkbox" id="sdas_participant" name="sdas_participant">
+                                <label for="sdas_participant">SDAS (Suckler Dam Aid Scheme)</label>
                             </div>
                             <div class="checkbox-item">
-                                <input type="checkbox" id="acres" name="compliance_schemes" value="ACRES">
-                                <label for="acres">ACRES (Agri-Climate Rural Environment Scheme)</label>
+                                <input type="checkbox" id="acres_participant" name="acres_participant">
+                                <label for="acres_participant">ACRES (Agri-Climate Rural Environment Scheme)</label>
                             </div>
                             <div class="checkbox-item">
-                                <input type="checkbox" id="organic" name="compliance_schemes" value="Organic">
-                                <label for="organic">Organic Certified</label>
+                                <input type="checkbox" id="organic_certified" name="organic_certified">
+                                <label for="organic_certified">Organic Certified</label>
                             </div>
                             <div class="checkbox-item">
-                                <input type="checkbox" id="derogation" name="compliance_schemes" value="Derogation">
-                                <label for="derogation">Nitrates Derogation Holder</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="none_scheme" name="compliance_schemes" value="None">
-                                <label for="none_scheme">None</label>
+                                <input type="checkbox" id="derogation_holder" name="derogation_holder">
+                                <label for="derogation_holder">Nitrates Derogation Holder</label>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="task_expectation">Main Farm Activities (Optional)</label>
-                        <textarea id="task_expectation" name="task_expectation" rows="3" placeholder="e.g., Daily milking, cattle feeding, field work, etc."></textarea>
                     </div>
 
                     <div class="telegram-info">
@@ -421,12 +398,6 @@
                     <button type="submit" class="btn btn-primary" id="submitBtn" style="display: none;">Register Farm 🚀</button>
                 </div>
             </form>
-
-            <div class="loading" id="loadingMessage">
-                <div class="spinner"></div>
-                <h3>Registering your farm...</h3>
-                <p>Please wait while we process your information.</p>
-            </div>
 
             <div class="success-message" id="successMessage">
                 <div class="success-icon">✅</div>
@@ -444,15 +415,6 @@
         let currentStep = 0;
         const steps = document.querySelectorAll('.step');
         const totalSteps = steps.length;
-
-        // Get Telegram user ID from URL parameter
-        function getTelegramUserIdFromUrl() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const userId = urlParams.get('user_id');
-            if (userId) {
-                document.getElementById('telegram_user_id').value = userId;
-            }
-        }
 
         function showStep(step) {
             steps.forEach((s, index) => {
@@ -521,89 +483,50 @@
             
             if (!validateCurrentStep()) return;
 
-            // Show loading
-            document.querySelector('.form-container').style.display = 'none';
-            document.getElementById('loadingMessage').style.display = 'block';
-
             // Collect form data
             const formData = new FormData(this);
-            const data = {};
+            const data = Object.fromEntries(formData.entries());
             
-            // Handle regular form fields
-            for (let [key, value] of formData.entries()) {
-                if (key === 'compliance_schemes') {
-                    // Handle multiple checkboxes
-                    if (!data.compliance) {
-                        data.compliance = [];
-                    }
-                    data.compliance.push(value);
-                } else {
-                    data[key] = value;
-                }
-            }
+            // Add checkbox values
+            const checkboxes = ['sdas_participant', 'acres_participant', 'organic_certified', 'derogation_holder'];
+            checkboxes.forEach(checkbox => {
+                data[checkbox] = document.getElementById(checkbox).checked;
+            });
 
-            // Convert compliance array to string
-            if (data.compliance && data.compliance.length > 0) {
-                data.compliance = data.compliance.join(', ');
-            } else {
-                data.compliance = 'None';
-            }
+            // Add token from URL parameter
+            const urlParams = new URLSearchParams(window.location.search);
+            data.token = urlParams.get('token');
 
             // Add metadata
-            data.registration_date = new Date().toISOString();
+            data.registration_type = 'farmer_self';
+            data.timestamp = new Date().toISOString();
             data.source = 'web_form';
 
             console.log('Registration data:', data);
 
             // Send data to n8n webhook
-            fetch('https://rakshitharamachandra.app.n8n.cloud/webhook/farmer-registration', {
+            fetch('YOUR_N8N_WEBHOOK_URL_HERE', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)
             })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
+            .then(response => response.json())
             .then(result => {
-                console.log('Success:', result);
-                // Hide loading and show success
-                document.getElementById('loadingMessage').style.display = 'none';
-                document.getElementById('successMessage').style.display = 'block';
+                if (result.success) {
+                    // Show success message
+                    document.querySelector('.form-container').style.display = 'none';
+                    document.getElementById('successMessage').style.display = 'block';
+                } else {
+                    alert('Registration failed. Please try again.');
+                }
             })
             .catch(error => {
                 console.error('Error:', error);
-                // Hide loading and show form again
-                document.getElementById('loadingMessage').style.display = 'none';
-                document.querySelector('.form-container').style.display = 'block';
-                alert('Registration failed. Please try again. Error: ' + error.message);
-            });
-        });
-
-        // Handle "None" checkbox exclusivity
-        document.getElementById('none_scheme').addEventListener('change', function() {
-            if (this.checked) {
-                // Uncheck all other scheme checkboxes
-                const otherCheckboxes = document.querySelectorAll('input[name="compliance_schemes"]:not(#none_scheme)');
-                otherCheckboxes.forEach(cb => cb.checked = false);
-            }
-        });
-
-        // Handle other checkboxes unchecking "None"
-        document.querySelectorAll('input[name="compliance_schemes"]:not(#none_scheme)').forEach(checkbox => {
-            checkbox.addEventListener('change', function() {
-                if (this.checked) {
-                    document.getElementById('none_scheme').checked = false;
-                }
+                alert('Registration failed. Please try again.');
             });
         });
 
         // Initialize
-        getTelegramUserIdFromUrl();
         showStep(0);
 
         // Real-time validation
